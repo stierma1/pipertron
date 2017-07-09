@@ -1,0 +1,23 @@
+{
+  "name": "pipertron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stierma1/pipertron.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stierma1/pipertron/issues"
+  },
+  "homepage": "https://github.com/stierma1/pipertron#readme",
+  "dependencies": {
+    "@reactivex/rxjs": "^5.4.2",
+    "jison": "^0.4.17"
+  }
+}
