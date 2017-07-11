@@ -7,6 +7,7 @@ var just = new Component({type:"start",name:"JUST", token:"JUST", expression:"ju
   return yy.LIBS.Rx.Observable.of(jsonObj);
 }});
 
+
 var from = new Component({type:"start",name:"FROM", token:"FROM", args:["optionalJsonCollectionWithWhiteSpace"], action: function(yy, token, white, jsonObj){
   return yy.LIBS.Rx.Observable.from(jsonObj);
 }});
@@ -17,8 +18,7 @@ var plus = new Component({name:"ADD", token:"ADD", args:["WHITE_SPACE", "json", 
   })
 }});
 
-var merge = new Component({name:"MERGE", token:"MERGE", args:["optionalWhiteSpace", "'('", "optionalWhiteSpace", "justExpression", "')'", "optionalWhiteSpace"], action: function(yy, obs, pipe, white, token, white, paren, white, val){
-
+var merge = new Component({name:"MERGE", token:"MERGE", args:["WHITE_SPACE", "subExpression", "optionalWhiteSpace"], action: function(yy, obs, pipe, white, token, white, val){
   return yy.LIBS.Rx.Observable.merge(obs, val);
 }});
 
@@ -35,6 +35,6 @@ var parser = jison.Generator(buildJison([just, plus, label, from, merge]), {type
 parser.yy = {COMPONENTS:{JUST:just, ADD:plus, LABEL:label, MERGE:merge}};
 parser.yy.LIBS = {Rx: require("@reactivex/rxjs")};
 
-parser.parse('JUST 5 | ADD 3 | MERGE(JUST 5)| LABEL "ham" ').subscribe((v) => {
+parser.parse('JUST 5 | ADD 3 | MERGE ( JUST 5 | MERGE ( JUST 5 ) )| LABEL "ham" ').subscribe((v) => {
   console.log(v)
 });
